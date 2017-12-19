@@ -1,0 +1,24 @@
+{
+  "name": "mean",
+  "version": "1.0.0",
+  "description": "my mean app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "gridfs-stream": "^1.1.1",
+    "mongoose": "*",
+    "multer": "^1.3.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^3.0.0",
+    "jsonwebtoken": "*"
+  },
+  "author": "",
+  "license": "ISC"
+}
