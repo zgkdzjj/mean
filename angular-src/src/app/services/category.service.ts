@@ -12,13 +12,13 @@ export class CategoryService {
   addCat(cat) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/categories', cat, {headers: headers})
+    return this.http.post('categories', cat, {headers: headers})
       .map(res => res.json());
   }
 
   // Get all categories from the database
   getCat() {
-    return this.http.get('http://localhost:3000/categories', null)
+    return this.http.get('categories', null)
       .map(res => res.json());
   }
 
@@ -26,14 +26,14 @@ export class CategoryService {
   updateCat(cat) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:3000/categories/' + cat._id, JSON.stringify(cat), {headers: headers})
+    return this.http.put('categories/' + cat._id, JSON.stringify(cat), {headers: headers})
       .map(res => res.json());
 
   }
 
   // Delete a category
   deleteCat(cat) {
-    return this.http.delete('http://localhost:3000/categories/' + cat._id)
+    return this.http.delete('categories/' + cat._id)
       .map(res => res.json());
   }
 

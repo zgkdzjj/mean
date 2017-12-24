@@ -2135,13 +2135,13 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/users/register', user, { headers: headers })
+        return this.http.post('users/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.validateLoginDetails = function (loginDetails) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/users/authenticate', loginDetails, { headers: headers })
+        return this.http.post('users/authenticate', loginDetails, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserInfo = function (user, token) {
@@ -2167,7 +2167,7 @@ var AuthService = /** @class */ (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         this.loadToken();
         headers.append('Authorization', this.authToken);
-        return this.http.post('http://localhost:3000/users/profile', null, { headers: headers })
+        return this.http.post('users/profile', null, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService = __decorate([
@@ -2209,12 +2209,12 @@ var ProductService = /** @class */ (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         //console.log('JSON.stringify(prod) => ' + JSON.stringify(prod));
         //headers.append('Content-Type', 'multipart/form-data');
-        return this.http.post('http://localhost:3000/products', prod, { headers: headers })
+        return this.http.post('products', prod, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Get all products from the db
     ProductService.prototype.getProd = function () {
-        return this.http.get('http://localhost:3000/products', null)
+        return this.http.get('products', null)
             .map(function (res) { return res.json(); });
     };
     // Update a product
@@ -2225,17 +2225,17 @@ var ProductService = /** @class */ (function () {
         console.log('prod._id => ' + prod.getAll('_id'));
         console.log('JSON.stringify(prod) => ' + JSON.stringify(prod, null, 4));
         var id = prod.getAll('_id');
-        return this.http.put('http://localhost:3000/products/' + id, prod, { headers: headers })
+        return this.http.put('products/' + id, prod, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Delete a product
     ProductService.prototype.deleteProd = function (prod) {
-        return this.http.delete('http://localhost:3000/products/' + prod._id)
+        return this.http.delete('products/' + prod._id)
             .map(function (res) { return res.json(); });
     };
     // Get a product's image
     ProductService.prototype.getImage = function (imgName) {
-        return this.http.get('http://localhost:3000/products/images/' + imgName)
+        return this.http.get('products/images/' + imgName)
             .map(function (res) { return res.json(); });
     };
     // Get a product by its name
@@ -2348,24 +2348,24 @@ var BrandService = /** @class */ (function () {
     BrandService.prototype.addBrand = function (brand) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/brands', brand, { headers: headers })
+        return this.http.post('brands', brand, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Get all brand from the database
     BrandService.prototype.getBrand = function () {
-        return this.http.get('http://localhost:3000/brands', null)
+        return this.http.get('brands', null)
             .map(function (res) { return res.json(); });
     };
     // Edit a brand
     BrandService.prototype.updateBrand = function (brand) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:3000/brands/' + brand._id, JSON.stringify(brand), { headers: headers })
+        return this.http.put('brands/' + brand._id, JSON.stringify(brand), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Delete a brand
     BrandService.prototype.deleteBrand = function (brand) {
-        return this.http.delete('http://localhost:3000/brands/' + brand._id)
+        return this.http.delete('brands/' + brand._id)
             .map(function (res) { return res.json(); });
     };
     BrandService = __decorate([
@@ -2406,24 +2406,24 @@ var CategoryService = /** @class */ (function () {
     CategoryService.prototype.addCat = function (cat) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/categories', cat, { headers: headers })
+        return this.http.post('categories', cat, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Get all categories from the database
     CategoryService.prototype.getCat = function () {
-        return this.http.get('http://localhost:3000/categories', null)
+        return this.http.get('categories', null)
             .map(function (res) { return res.json(); });
     };
     // Update a category
     CategoryService.prototype.updateCat = function (cat) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:3000/categories/' + cat._id, JSON.stringify(cat), { headers: headers })
+        return this.http.put('categories/' + cat._id, JSON.stringify(cat), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Delete a category
     CategoryService.prototype.deleteCat = function (cat) {
-        return this.http.delete('http://localhost:3000/categories/' + cat._id)
+        return this.http.delete('categories/' + cat._id)
             .map(function (res) { return res.json(); });
     };
     CategoryService = __decorate([
@@ -2464,12 +2464,12 @@ var OrderService = /** @class */ (function () {
     OrderService.prototype.addOrder = function (order) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/orders', order, { headers: headers })
+        return this.http.post('orders', order, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Get all orders from the db
     OrderService.prototype.getOrders = function () {
-        return this.http.get('http://localhost:3000/orders', null)
+        return this.http.get('orders', null)
             .map(function (res) { return res.json(); });
     };
     // Update Order
@@ -2477,13 +2477,13 @@ var OrderService = /** @class */ (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = order._id;
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:3000/orders/' + id, JSON.stringify(order), { headers: headers })
+        return this.http.put('orders/' + id, JSON.stringify(order), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Delete an order
     OrderService.prototype.deleteOrder = function (order) {
         var id = order._id;
-        return this.http.delete('http://localhost:3000/orders/' + id)
+        return this.http.delete('orders/' + id)
             .map(function (res) { return res.json(); });
     };
     // Get Purchase List
