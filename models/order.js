@@ -19,6 +19,7 @@ const OrderSchema = new mongoose.Schema({
     subAmount: Number,
     totalAmount: Number,
     VAT: Number,
+    shipmentFee: Number,
     profit: Number,
     discount: Number,
     grandTotal: Number,
@@ -49,7 +50,7 @@ module.exports.removeOrder = function (id, callback) {
 };
 
 module.exports.updateOrder = function (id, updatedOrder,callback) {
-    Order.findOneAndUpdate({_id: id}, updatedOrder, {new: false}, callback);
+    Order.findOneAndUpdate({_id: id}, updatedOrder, {new: true}, callback);
 };
 
 

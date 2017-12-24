@@ -2,6 +2,8 @@
 <br>
 <br>
 
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<p-growl [(value)]="msgs"></p-growl>
 <p-panel>
   <p-header>
     <div class="ui-helper-clearfix">
@@ -33,7 +35,7 @@
       </ng-template>
       <ng-template let-row="rowData" pTemplate="body">
         <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)"></button>
-        <button type="button" pButton icon="fa-remove" (click)="onRemoveClick(row)"></button>
+        <button type="button" pButton icon="fa-remove" (click)="onRemoveOrderClick(row)"></button>
       </ng-template>
     </p-column>
 
@@ -77,7 +79,7 @@
                 <input pInputText id="orderStatus" [(ngModel)]="order.orderStatus"/>
         -->
         <p-dropdown appendTo="body" [options]="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus"
-                    placeholder="---- Select ----" [autoWidth]="false"></p-dropdown>
+                    [autoWidth]="false"></p-dropdown>
       </div>
       <div class="ui-grid-col-3"><label for="trackingNb">Tracking NB. ： </label></div>
       <div class="ui-grid-col-3"><input pInputText id="trackingNb" [(ngModel)]="order.trackNb"/></div>
@@ -87,10 +89,12 @@
   <br>
 
   <!--Brife order products list-->
-  <p-dataTable [value]="order.products" [editable]="true" (onEdit)="onEditQuantity($event)" [(selection)]="selectedProd" >
+  <p-dataTable [value]="order.products" [editable]="true" (onEdit)="onEditQuantity($event)"
+               [(selection)]="selectedProd">
     <p-column field="name" header="Item" [editable]="true">
       <ng-template let-col let-prod="rowData" pTemplate="editor">
-        <p-dropdown appendTo="body" [(ngModel)]="prod[col.field]" [options]="prodSelection" [autoWidth]="false" [style]="{'width':'100%'}"
+        <p-dropdown appendTo="body" [(ngModel)]="prod[col.field]" [options]="prodSelection" [autoWidth]="false"
+                    [style]="{'width':'100%'}"
                     required="true" appendTo="body" (onChange)="onChange($event,prod)"></p-dropdown>
       </ng-template>
 
@@ -123,19 +127,85 @@
     </div>
     <div class="ui-grid-row">
       <div class="ui-grid-col-6"></div>
+      <div class="ui-grid-col-3"><label>Shipment Fee ： </label></div>
+      <div class="ui-grid-col-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">$</span>
+          <input type="number" pInputText placeholder="Shipment Fee" [(ngModel)]="order.shipmentFee"
+                 (keyup)="updateTotal()">
+        </div>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-6"></div>
       <div class="ui-grid-col-3"><label>Profit ： </label></div>
-      <div class="ui-grid-col-3">{{order.profit}}</div>
+      <div class="ui-grid-col-3">
+        <!--<input pInputText [(ngModel)]="order.profit"/>-->
+        <div class="ui-inputgroup">
+          <input type="number" pInputText placeholder="Profit" [(ngModel)]="order.profit" (keyup)="updateTotal()">
+          <span class="ui-inputgroup-addon">%</span>
+        </div>
+      </div>
     </div>
     <div class="ui-grid-row">
       <div class="ui-grid-col-6"></div>
       <div class="ui-grid-col-3"><label>Discount ： </label></div>
-      <div class="ui-grid-col-3">{{order.discount}}</div>
+      <!--
+            <div class="ui-grid-col-3">{{order.discount}}</div>
+      -->
+      <div class="ui-grid-col-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">$</span>
+          <input type="number" pInputText placeholder="Discount" [(ngModel)]="order.discount" (keyup)="updateTotal()">
+        </div>
+      </div>
     </div>
+
 
     <div class="ui-grid-row">
       <div class="ui-grid-col-6"></div>
       <div class="ui-grid-col-3"><label>Total ： </label></div>
       <div class="ui-grid-col-3">{{order.grandTotal}}</div>
+    </div>
+
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3"><label>Paid Amount ： </label></div>
+      <!--
+            <div class="ui-grid-col-3">{{order.discount}}</div>
+      -->
+      <div class="ui-grid-col-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">$</span>
+          <input type="number" pInputText placeholder="Paid Amount" [(ngModel)]="order.paidAmount"
+                 (keyup)="updateTotal()">
+        </div>
+      </div>
+      <div class="ui-grid-col-3"><label>Payment Type ： </label></div>
+      <div class="ui-grid-col-3">
+        <p-dropdown appendTo="body" [options]="paymentTypes" id="paymentType" [(ngModel)]="order.paymentType"
+                   [autoWidth]="false"></p-dropdown>
+      </div>
+
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-3"><label>Due Amount ： </label></div>
+      <!--
+            <div class="ui-grid-col-3">{{order.discount}}</div>
+      -->
+      <div class="ui-grid-col-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">$</span>
+          <input type="number" pInputText placeholder="Due Amount" [(ngModel)]="order.dueAmount"
+                 (keyup)="updateTotal()">
+        </div>
+      </div>
+      <div class="ui-grid-col-3"><label>Payment Status ： </label></div>
+      <div class="ui-grid-col-3">
+        <p-dropdown appendTo="body" [options]="paymentStatuses" [(ngModel)]="order.paymentStatus"
+                    [autoWidth]="false"></p-dropdown>
+      </div>
     </div>
   </div>
 

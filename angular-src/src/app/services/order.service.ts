@@ -12,13 +12,13 @@ export class OrderService {
   addOrder(order) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/orders', order, {headers: headers})
+    return this.http.post('orders', order, {headers: headers})
       .map(res => res.json());
   }
 
   // Get all orders from the db
   getOrders() {
-    return this.http.get('http://localhost:3000/orders', null)
+    return this.http.get('orders', null)
       .map(res => res.json());
   }
 
@@ -26,15 +26,15 @@ export class OrderService {
   updateOrder(order) {
     let headers = new Headers();
     let id = order._id;
-    headers.append('Content-Type', 'applicaiton/json');
-    return this.http.put('http://localhost:/3000/orders/' + id, order, {headers: headers})
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('orders/' + id, JSON.stringify(order), {headers: headers})
       .map(res => res.json());
   }
 
   // Delete an order
   deleteOrder(order) {
     let id = order._id;
-    return this.http.delete('http://localhost:3000/orders/' + id)
+    return this.http.delete('orders/' + id)
       .map(res => res.json());
   }
 

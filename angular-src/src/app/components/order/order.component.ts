@@ -282,7 +282,7 @@ export class OrderComponent implements OnInit {
     console.log('shipmentFee => ' + this.order.shipmentFee);
     console.log('profit => ' + this.order.profit);
     console.log('discount => ' + this.order.discount);
-    gt = (this.order.subAmount + this.order.shipmentFee) * (1 + this.order.profit) - this.order.discount;
+    gt = (this.order.subAmount + this.order.shipmentFee) * (1 + this.order.profit/100) - this.order.discount;
     this.order.grandTotal = gt;
     this.order.dueAmount = this.order.grandTotal - this.order.paidAmount;
     console.log('grandTotal => ' + this.order.grandTotal);
@@ -322,6 +322,7 @@ export class OrderComponent implements OnInit {
         }
       });
     }
+    this.resetOrder();
 
     /*
         console.log('this.order => ' + JSON.stringify(this.order, null, 4));

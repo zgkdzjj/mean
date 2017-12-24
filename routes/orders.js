@@ -14,6 +14,7 @@ router.post('/', (req, res, next) => {
         subAmount: req.body.subAmount,
         totalAmount: req.body.totalAmount,
         VAT: req.body.VAT,
+        shipmentFee: req.body.shipmentFee,
         profit: req.body.profit,
         discount: req.body.discount,
         grandTotal: req.body.grandTotal,
