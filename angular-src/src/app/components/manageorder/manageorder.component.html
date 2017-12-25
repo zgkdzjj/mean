@@ -93,7 +93,7 @@
                [(selection)]="selectedProd">
     <p-column field="name" header="Item" [editable]="true">
       <ng-template let-col let-prod="rowData" pTemplate="editor">
-        <p-dropdown appendTo="body" [(ngModel)]="prod[col.field]" [options]="prodSelection" [autoWidth]="false"
+        <p-dropdown appendTo="body" [(ngModel)]="prod[col.field]" [options]="prodSelection" [autoWidth]="false" [filter]="true"
                     [style]="{'width':'100%'}"
                     required="true" appendTo="body" (onChange)="onChange($event,prod)"></p-dropdown>
       </ng-template>
