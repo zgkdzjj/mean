@@ -7,7 +7,7 @@ import {ProductService} from "../../services/product.service";
 import {IOProduct} from "../../models/OProduct";
 import {Message} from "primeng/primeng";
 import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
-
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-manageorder',
@@ -30,7 +30,8 @@ export class ManageorderComponent implements OnInit {
   paymentStatuses: any[];
   constructor(private orderService: OrderService,
               private productService: ProductService,
-              private confirmationService: ConfirmationService) { }
+              private confirmationService: ConfirmationService,
+              private router: Router) { }
 
   ngOnInit() {
     this.items = [
@@ -234,6 +235,11 @@ export class ManageorderComponent implements OnInit {
 
   cancel() {
     this.displayDialog = false;
+  }
+
+  // To add order page
+  toAddOrder() {
+    this.router.navigateByUrl('/order');
   }
 
 
