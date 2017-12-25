@@ -22,10 +22,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
-import {DataTableModule, SharedModule} from 'primeng/primeng';
+import { SharedModule} from 'primeng/primeng';
 import {DialogModule, ButtonModule, InputTextModule,PanelModule, ConfirmDialogModule,ConfirmationService,
 GrowlModule, MessageModule, MessagesModule, BreadcrumbModule, MenuItem, FileUploadModule, OverlayPanelModule, Header, Footer} from 'primeng/primeng';
-
+import {DataTableModule} from "primeng/primeng";
 import {DropdownModule} from "primeng/primeng";
 import {CalendarModule} from "primeng/primeng";
 import {BrandService} from "./services/brand.service";
