@@ -232,5 +232,9 @@ export class ManageorderComponent implements OnInit {
     this.order.dueAmount = this.order.grandTotal - this.order.paidAmount;
   }
 
+  cancel() {
+    this.displayDialog = false;
+  }
+
 
 }
