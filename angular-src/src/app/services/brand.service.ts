@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import {IBrand} from "../models/Brand";
+import {hostUrl} from '../config/HostUrl';
 
 
 @Injectable()
 export class BrandService {
-  hostUrl = 'http://localhost:3000/';
+  hostUrl = hostUrl;
   brand: IBrand;
 
   constructor(private http: Http) { }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {IProduct} from "../models/Product";
 import {Http, Headers} from "@angular/http";
+import {hostUrl} from '../config/HostUrl';
 
 @Injectable()
 export class ProductService {
-  hostUrl = 'http://localhost:3000/';
+  hostUrl = hostUrl;
   prod: IProduct;
 
   constructor(private http: Http) { }

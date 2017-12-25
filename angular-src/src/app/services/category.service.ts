@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from "@angular/http";
 import { ICategory} from "../models/Category";
-
+import {hostUrl} from '../config/HostUrl';
 @Injectable()
 export class CategoryService {
-  hostUrl = 'http://localhost:3000/';
+  hostUrl = hostUrl;
   cat: ICategory;
 
   constructor(private http: Http) { }
