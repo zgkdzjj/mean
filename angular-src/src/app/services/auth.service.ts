@@ -2,32 +2,36 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from "angular2-jwt";
+import {hostUrl} from '../config/HostUrl';
 
 @Injectable()
 export class AuthService {
+  hostUrl = hostUrl;
+
   authToken: any;
   user: any;
 
-  constructor(private http:Http) {
+
+  constructor(private http: Http) {
   }
 
-  registerUser(user){
+  registerUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/register',
+    return this.http.post(this.hostUrl + 'users/register',
       user, {headers: headers})
       .map(res => res.json());
   }
 
-  validateLoginDetails(loginDetails){
+  validateLoginDetails(loginDetails) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/authenticate',
+    return this.http.post(this.hostUrl + 'users/authenticate',
       loginDetails, {headers: headers})
       .map(res => res.json());
   }
 
-  storeUserInfo(user,token){
+  storeUserInfo(user, token) {
     this.authToken = token;
     this.user = user;
     localStorage.setItem('token', this.authToken);
@@ -55,7 +59,7 @@ export class AuthService {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    return this.http.post('users/profile',
+    return this.http.post(this.hostUrl + 'users/profile',
       null, {headers: headers})
       .map(res => res.json());
   }

@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material";
-import {MatCard} from "@angular/material";
-//import {AddBrandDialogComponent} from "../dialogs/add-brand-dialog/add-brand-dialog.component";
 import {DataTableModule, SharedModule} from "primeng/primeng";
 import {BrandService} from "../../services/brand.service";
 import {IBrand} from "../../models/Brand";

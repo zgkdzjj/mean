@@ -5,6 +5,7 @@ import {IBrand} from "../models/Brand";
 
 @Injectable()
 export class BrandService {
+  hostUrl = 'http://localhost:3000/';
   brand: IBrand;
 
   constructor(private http: Http) { }
@@ -13,14 +14,14 @@ export class BrandService {
   addBrand(brand) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('brands',
+    return this.http.post(this.hostUrl + 'brands',
       brand, {headers: headers})
       .map(res => res.json());
   }
 
   // Get all brand from the database
   getBrand() {
-    return this.http.get('brands', null)
+    return this.http.get(this.hostUrl + 'brands', null)
       .map(res => res.json());
   }
 
@@ -28,13 +29,13 @@ export class BrandService {
   updateBrand(brand) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('brands/' + brand._id, JSON.stringify(brand), {headers: headers})
+    return this.http.put(this.hostUrl + 'brands/' + brand._id, JSON.stringify(brand), {headers: headers})
       .map(res => res.json());
   }
 
   // Delete a brand
   deleteBrand(brand) {
-    return this.http.delete('brands/' + brand._id)
+    return this.http.delete(this.hostUrl + 'brands/' + brand._id)
       .map(res => res.json());
 
   }

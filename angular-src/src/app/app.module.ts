@@ -19,22 +19,14 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {BrandComponent} from './components/brand/brand.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
-import { MatCardModule } from '@angular/material';
-import { MatButtonModule } from '@angular/material';
-import {MatInputModule,  MatSelectModule} from "@angular/material";
-//import { MatDialogModule } from '@angular/material';
-import { MatTooltipModule } from '@angular/material';
-import { MatSnackBarModule } from '@angular/material';
 
 
 import {DataTableModule, SharedModule, DropdownModule, CalendarModule} from 'primeng/primeng';
 import {DialogModule, ButtonModule, InputTextModule,PanelModule, ConfirmDialogModule,ConfirmationService,
 GrowlModule, MessageModule, MessagesModule, BreadcrumbModule, MenuItem, FileUploadModule, OverlayPanelModule, Header, Footer} from 'primeng/primeng';
 
-import {MatDialogModule} from "@angular/material";
-import { AddBrandDialogComponent } from './components/dialogs/add-brand-dialog/add-brand-dialog.component';
+
 import {BrandService} from "./services/brand.service";
 import { CategoryComponent } from './components/category/category.component';
 import {CategoryService} from "./services/category.service";
@@ -69,7 +61,6 @@ const appRoutes: Routes = [
     ProfileComponent,
     RegisterComponent,
     BrandComponent,
-    AddBrandDialogComponent,
     CategoryComponent,
     ProductComponent,
     OrderComponent,
@@ -85,11 +76,7 @@ const appRoutes: Routes = [
     FlashMessagesModule,
     BrowserAnimationsModule,
 
-    MatDialogModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSelectModule,
+
     SharedModule,
     DataTableModule,
     DropdownModule,
@@ -107,9 +94,7 @@ const appRoutes: Routes = [
     CalendarModule
 
   ],
-  entryComponents: [
-    AddBrandDialogComponent
-  ],
+  entryComponents: [],
   providers: [
     ValidateService,
     AuthService,

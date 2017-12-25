@@ -4,6 +4,7 @@ import { ICategory} from "../models/Category";
 
 @Injectable()
 export class CategoryService {
+  hostUrl = 'http://localhost:3000/';
   cat: ICategory;
 
   constructor(private http: Http) { }
@@ -12,13 +13,13 @@ export class CategoryService {
   addCat(cat) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('categories', cat, {headers: headers})
+    return this.http.post(this.hostUrl + 'categories', cat, {headers: headers})
       .map(res => res.json());
   }
 
   // Get all categories from the database
   getCat() {
-    return this.http.get('categories', null)
+    return this.http.get(this.hostUrl + 'categories', null)
       .map(res => res.json());
   }
 
@@ -26,14 +27,14 @@ export class CategoryService {
   updateCat(cat) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('categories/' + cat._id, JSON.stringify(cat), {headers: headers})
+    return this.http.put(this.hostUrl + 'categories/' + cat._id, JSON.stringify(cat), {headers: headers})
       .map(res => res.json());
 
   }
 
   // Delete a category
   deleteCat(cat) {
-    return this.http.delete('categories/' + cat._id)
+    return this.http.delete(this.hostUrl + 'categories/' + cat._id)
       .map(res => res.json());
   }
 
