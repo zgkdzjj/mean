@@ -47,8 +47,8 @@ const appRoutes: Routes = [
   {path: 'brand', component: BrandComponent, canActivate: [AuthGuardService]},
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuardService]},
   {path: 'product', component: ProductComponent, canActivate: [AuthGuardService]},
-  {path: 'order/add', component: OrderComponent, canActivate: [AuthGuardService]},
-  {path: 'order/manageorder', component: ManageorderComponent, canActivate: [AuthGuardService]}
+  {path: 'orders/add', component: OrderComponent, canActivate: [AuthGuardService]},
+  {path: 'orders/manageorder', component: ManageorderComponent, canActivate: [AuthGuardService]}
 
 ];
 
