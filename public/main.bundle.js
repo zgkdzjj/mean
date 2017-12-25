@@ -2401,12 +2401,12 @@ var OrderService = /** @class */ (function () {
     OrderService.prototype.addOrder = function (order) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(this.hostUrl + 'orders', order, { headers: headers })
+        return this.http.post(this.hostUrl + 'orders/add', order, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Get all orders from the db
     OrderService.prototype.getOrders = function () {
-        return this.http.get(this.hostUrl + 'orders', null)
+        return this.http.get(this.hostUrl + 'orders/manageorder', null)
             .map(function (res) { return res.json(); });
     };
     // Update Order
@@ -2414,13 +2414,13 @@ var OrderService = /** @class */ (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         var id = order._id;
         headers.append('Content-Type', 'application/json');
-        return this.http.put(this.hostUrl + 'orders/' + id, JSON.stringify(order), { headers: headers })
+        return this.http.put(this.hostUrl + 'orders/manageorder/' + id, JSON.stringify(order), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     // Delete an order
     OrderService.prototype.deleteOrder = function (order) {
         var id = order._id;
-        return this.http.delete(this.hostUrl + 'orders/' + id)
+        return this.http.delete(this.hostUrl + 'orders/manageorder/' + id)
             .map(function (res) { return res.json(); });
     };
     // Get Purchase List

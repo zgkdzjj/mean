@@ -3,7 +3,7 @@ const router = express.Router();
 const Order = require('../models/order');
 
 // Add an order
-router.post('/', (req, res, next) => {
+router.post('/add', (req, res, next) => {
     let newOrder = new Order({
         orderNb: req.body.orderNb,
         orderDate: req.body.orderDate,
@@ -38,7 +38,7 @@ router.post('/', (req, res, next) => {
 });
 
 // Get all orders
-router.get('/', (req, res, next) => {
+router.get('/manageorder', (req, res, next) => {
     Order.listAllOrder((err, orders) => {
         if (err) {
             res.json({success: false, msg: 'Failed to load all orders', data: err});
@@ -49,7 +49,7 @@ router.get('/', (req, res, next) => {
 });
 
 // Get an order by its id
-router.get('/:orderID', (req, res, next) => {
+router.get('/manageorder/:orderID', (req, res, next) => {
     Order.getOrderById(req.params.orderID, (err, order) => {
         if (err) {
             res.json({success: false, msg: 'Cannot get the order', data: err});
@@ -60,7 +60,7 @@ router.get('/:orderID', (req, res, next) => {
 });
 
 // Remove an order
-router.delete('/:orderID', (req, res, next) => {
+router.delete('/manageorder/:orderID', (req, res, next) => {
     Order.removeOrder(req.params.orderID, (err, order) => {
         if (err) {
             res.json({success: false, msg: 'Failed to remove the order', data: err});
@@ -71,7 +71,7 @@ router.delete('/:orderID', (req, res, next) => {
 });
 
 // Update an order
-router.put('/:orderID', (req, res, next) => {
+router.put('/manageorder/:orderID', (req, res, next) => {
     let updatedOrder = req.body;
     Order.updateOrder(req.params.orderID, updatedOrder, (err, order) => {
         if (err) {

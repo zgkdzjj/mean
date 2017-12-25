@@ -13,13 +13,13 @@ export class OrderService {
   addOrder(order) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post(this.hostUrl + 'orders', order, {headers: headers})
+    return this.http.post(this.hostUrl + 'orders/add', order, {headers: headers})
       .map(res => res.json());
   }
 
   // Get all orders from the db
   getOrders() {
-    return this.http.get(this.hostUrl + 'orders', null)
+    return this.http.get(this.hostUrl + 'orders/manageorder', null)
       .map(res => res.json());
   }
 
@@ -28,14 +28,14 @@ export class OrderService {
     let headers = new Headers();
     let id = order._id;
     headers.append('Content-Type', 'application/json');
-    return this.http.put(this.hostUrl + 'orders/' + id, JSON.stringify(order), {headers: headers})
+    return this.http.put(this.hostUrl + 'orders/manageorder/' + id, JSON.stringify(order), {headers: headers})
       .map(res => res.json());
   }
 
   // Delete an order
   deleteOrder(order) {
     let id = order._id;
-    return this.http.delete(this.hostUrl + 'orders/' + id)
+    return this.http.delete(this.hostUrl + 'orders/manageorder/' + id)
       .map(res => res.json());
   }
 
