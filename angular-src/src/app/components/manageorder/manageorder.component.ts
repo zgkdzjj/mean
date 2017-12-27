@@ -7,7 +7,7 @@ import {ProductService} from "../../services/product.service";
 import {IOProduct} from "../../models/OProduct";
 import {Message} from "primeng/primeng";
 import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
-import {Router} from "@angular/router";
+import { NavigationExtras, Router} from "@angular/router";
 
 @Component({
   selector: 'app-manageorder',
@@ -240,6 +240,20 @@ export class ManageorderComponent implements OnInit {
   // To add order page
   toAddOrder() {
     this.router.navigateByUrl('/order');
+  }
+
+  onCloneOrderClick(row) {
+    let orderInfo = JSON.stringify(row);
+    //console.log('row => ' + JSON.stringify(row, null, 4));
+    console.log('clone order pressed');
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "orderInfo" : orderInfo
+      }
+
+    };
+    this.router.navigate(["order"], navigationExtras);
+
   }
 
 

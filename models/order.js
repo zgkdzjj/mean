@@ -13,6 +13,7 @@ const OrderSchema = new mongoose.Schema({
     orderNb: String,
     orderDate: String,
     clientName: String,
+    clientAliases: String,
     contactNb: String,
     address: String,
     products: [orderProd],

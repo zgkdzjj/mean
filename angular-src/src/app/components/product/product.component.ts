@@ -18,7 +18,10 @@ class Product implements IProduct {
               public prodRate?,
               public prodStatus?,
               public prodImg?,
-              public prodSpecs?) {
+              public prodSpecs?,
+              public prodCostInAUD?,
+              public prodCostInRMB?,
+              public prodCostEndDate?) {
   }
 }
 
@@ -175,6 +178,10 @@ export class ProductComponent implements OnInit {
       this.formData.set('prodRate', this.prod.prodRate.toString());
       this.formData.set('prodStatus', this.prod.prodStatus);
       this.formData.set('prodSpecs', this.prod.prodSpecs);
+      this.formData.set('prodCostInAUD', this.prod.prodCostInAUD.toString());
+      this.formData.set('prodCostInRMB', this.prod.prodCostInRMB.toString());
+      this.formData.set('prodCostEndDate', this.prod.prodCostEndDate);
+
 
       //this.fileInput.upload();
       console.log('this.formData => ' + this.formData);
@@ -258,6 +265,11 @@ export class ProductComponent implements OnInit {
 
   cloneProd(p: IProduct) {
     return Object.assign({}, p);
+  }
+
+  // Calculate RMB after entering AUD price
+  updateRMB() {
+    this.prod.prodCostInRMB = this.prod.prodCostInAUD * 5.3;
   }
 
 }

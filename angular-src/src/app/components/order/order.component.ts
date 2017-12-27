@@ -9,6 +9,7 @@ import {Footer} from 'primeng/primeng';
 //import {MessageService} from "primeng/components/common/messageservice";
 import {Message} from "primeng/primeng";
 import {noUndefined} from "@angular/compiler/src/util";
+import {ActivatedRoute} from "@angular/router";
 
 class OProduct implements IOProduct {
   constructor(public name?, public rate?, public quantity?, public total?) {
@@ -19,6 +20,7 @@ export class Order implements IOrder {
   constructor(public orderNb?,
               public orderDate?,
               public clientName?,
+              public clientAliases?,
               public contactNb?,
               public address?,
               public products?,
@@ -63,7 +65,18 @@ export class OrderComponent implements OnInit {
   private items: MenuItem[];
 
   constructor(private orderService: OrderService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+      console.log('params =>' + JSON.stringify(params,null,4));
+      // Check queryParams is empty or not, if empty do nothing, if not then load order info
+      if(params.hasOwnProperty('orderInfo')) {
+        console.log('params.orderInfo => ' + params.orderInfo);
+        this.order = JSON.parse(params.orderInfo);
+        this.oproducts = this.order.products;
+        console.log('this.order data.orderInfo => ' + JSON.stringify(this.order,null, 4));
+      }
+    });
   }
 
   ngOnInit() {
@@ -132,7 +145,7 @@ export class OrderComponent implements OnInit {
     let p : any[] =[];
     // Get all available products for puchase
     this.productService.getProd().subscribe(products => {
-      console.log('products => ' + JSON.stringify(products, null, 4));
+      //console.log('products => ' + JSON.stringify(products, null, 4));
 
 
       // set available products dynamically
@@ -310,7 +323,10 @@ export class OrderComponent implements OnInit {
       // generate order nuber
       this.order.orderNb = (Math.floor(Math.random() * 1000000)).toString();
       // add products list
+
       this.order.products = this.oproducts;
+
+
       console.log('this.order 21=> ' + JSON.stringify(this.order, null, 4));
       this.orderService.addOrder(this.order).subscribe(data => {
         console.log(data);
@@ -333,6 +349,7 @@ export class OrderComponent implements OnInit {
   resetOrder() {
     console.log('resent order button pressed');
     this.order.clientName = null;
+    this.order.clientAliases = null;
     this.order.contactNb = null;
     this.order.orderDate = null;
     this.order.address = null;

@@ -8,6 +8,7 @@ router.post('/', (req, res, next) => {
         orderNb: req.body.orderNb,
         orderDate: req.body.orderDate,
         clientName: req.body.clientName,
+        clientAliases: req.body.clientAliases,
         contactNb: req.body.contactNb,
         address: req.body.address,
         products: req.body.products,

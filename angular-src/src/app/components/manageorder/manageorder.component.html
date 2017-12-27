@@ -23,6 +23,8 @@
     <p-column field="orderNb" header="Order Number" [editable]="false"></p-column>
     <p-column field="orderDate" header="Order Date" [editable]="false"></p-column>
     <p-column field="clientName" header="Client Name" [editable]="false"></p-column>
+    <p-column field="clientAliases" header="Client Aliases" [editable]="false"></p-column>
+
     <p-column field="contactNb" header="Contact Number" [editable]="false"></p-column>
     <p-column field="paymentStatus" header="Payment Status" [editable]="false"></p-column>
     <p-column field="orderStatus" header="Order Status" [editable]="false"></p-column>
@@ -35,6 +37,7 @@
       </ng-template>
       <ng-template let-row="rowData" pTemplate="body">
         <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)"></button>
+        <button type="button" pButton icon="fa-clone" (click)="onCloneOrderClick(row)"></button>
         <button type="button" pButton icon="fa-remove" (click)="onRemoveOrderClick(row)"></button>
       </ng-template>
     </p-column>
@@ -63,8 +66,16 @@
     <div class="ui-grid-row">
       <div class="ui-grid-col-3"><label for="clientName">Client Name： </label></div>
       <div class="ui-grid-col-3"><input pInputText id="clientName" [(ngModel)]="order.clientName"/></div>
+
+      <div class="ui-grid-col-3"><label for="clientAliases">Client Aliases： </label></div>
+      <div class="ui-grid-col-3"><input pInputText id="clientAliases" [(ngModel)]="order.clientAliases"/></div>
+
+
+    </div>
+
+    <div class="ui-grid-row">
       <div class="ui-grid-col-3"><label for="contactNb">Contact Number ： </label></div>
-      <div class="ui-grid-col-3"><input pInputText id="contactNb" [(ngModel)]="order.contactNb"/></div>
+      <div class="ui-grid-col-9"><input pInputText id="contactNb" [(ngModel)]="order.contactNb"/></div>
     </div>
 
     <div class="ui-grid-row">
@@ -130,7 +141,7 @@
       <div class="ui-grid-col-3"><label>Shipment Fee ： </label></div>
       <div class="ui-grid-col-3">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">$</span>
+          <span class="ui-inputgroup-addon">￥</span>
           <input type="number" pInputText placeholder="Shipment Fee" [(ngModel)]="order.shipmentFee"
                  (keyup)="updateTotal()">
         </div>
@@ -155,7 +166,7 @@
       -->
       <div class="ui-grid-col-3">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">$</span>
+          <span class="ui-inputgroup-addon">￥</span>
           <input type="number" pInputText placeholder="Discount" [(ngModel)]="order.discount" (keyup)="updateTotal()">
         </div>
       </div>
@@ -176,7 +187,7 @@
       -->
       <div class="ui-grid-col-3">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">$</span>
+          <span class="ui-inputgroup-addon">￥</span>
           <input type="number" pInputText placeholder="Paid Amount" [(ngModel)]="order.paidAmount"
                  (keyup)="updateTotal()">
         </div>
@@ -196,7 +207,7 @@
       -->
       <div class="ui-grid-col-3">
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon">$</span>
+          <span class="ui-inputgroup-addon">￥</span>
           <input type="number" pInputText placeholder="Due Amount" [(ngModel)]="order.dueAmount"
                  (keyup)="updateTotal()">
         </div>

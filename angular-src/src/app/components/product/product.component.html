@@ -35,7 +35,10 @@
     <p-column field="prodBrand" header="Brand" [editable]="false"></p-column>
     <p-column field="prodCat" header="Category" [editable]="false"></p-column>
     <p-column field="prodQuantity" header="Quantity" [editable]="false"></p-column>
-    <p-column field="prodRate" header="Rate" [editable]="false"></p-column>
+    <p-column field="prodCostInAUD" header="Price In AUD" [editable]="false"></p-column>
+    <p-column field="prodCostInRMB" header="Price In RMB" [editable]="false"></p-column>
+    <p-column field="prodRate" header="Retail Price" [editable]="false"></p-column>
+    <p-column field="prodCostEndDate" header="Promotion End Date" [editable]="false"></p-column>
     <p-column field="prodSpecs" header="Specs" [editable]="false"></p-column>
     <p-column field="prodStatus" header="Status" [editable]="false"></p-column>
 
@@ -66,9 +69,9 @@
       <div class="ui-grid-col-4"><label for="avatar">Image(optional) ： </label></div>
       <div class="ui-grid-col-8">
         <div>
-        <p-fileUpload #fileInput url="http://localhost:3000/products/" [showUploadButton]="false" id="avatar"
-                      [showCancelButton]="false" name="avatar" accept="image/*" maxFileSize="1000000"
-                      (onSelect)="onSelect($event)" type="file" value="null" ></p-fileUpload>
+          <p-fileUpload #fileInput url="http://localhost:3000/products/" [showUploadButton]="false" id="avatar"
+                        [showCancelButton]="false" name="avatar" accept="image/*" maxFileSize="1000000"
+                        (onSelect)="onSelect($event)" type="file" value="null"></p-fileUpload>
         </div>
       </div>
     </div>
@@ -104,13 +107,53 @@
       </div>
     </div>
 
+
+
     <div class="ui-grid-row">
-      <div class="ui-grid-col-4"><label for="prodRate">Price ： </label></div>
+      <div class="ui-grid-col-4"><label for="prodCostInAUD">Price in AUD： </label></div>
       <div class="ui-grid-col-8">
-        <input pInputText id="prodRate" [(ngModel)]="prod.prodRate" value="0" placeholder="Price" type="number"
-               required/>
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">$</span>
+          <input pInputText id="prodCostInAUD" [(ngModel)]="prod.prodCostInAUD" value="0" placeholder="Price In AUD"
+                 type="number" (keyup)="updateRMB()"/>
+        </div>
       </div>
     </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label for="prodCostInRMB">Price in RMB： </label></div>
+      <div class="ui-grid-col-8">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">￥</span>
+          <input pInputText id="prodCostInRMB" [(ngModel)]="prod.prodCostInRMB" value="0" placeholder="Price In RMB"
+                 type="number"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label for="prodRate">Retail Price ： </label></div>
+      <div class="ui-grid-col-8">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon">￥</span>
+          <input pInputText id="prodRate" [(ngModel)]="prod.prodRate" value="0" placeholder="Retail Price" type="number"
+                 required/>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Promotion End Date： </label></div>
+      <div class="ui-grid-col-8">
+        <!--
+                <input pInputText id="prodCostEndDate" [(ngModel)]="prod.prodCostEndDate" value="0" placeholder="Promotion End Date"/>
+        -->
+
+        <p-calendar [(ngModel)]="prod.prodCostEndDate" [showIcon]="true" placeholder="Promotion End Date"
+                    dateFormat="yy-mm-dd" dataType="string"></p-calendar>
+      </div>
+    </div>
+
+
 
     <div class="ui-grid-row">
       <div class="ui-grid-col-4"><label for="prodSpecs">Specs ： </label></div>

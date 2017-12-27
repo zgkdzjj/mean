@@ -38,7 +38,10 @@ conn.once('open', () => {
                 prodBrand: req.body.prodBrand,
                 prodCat: req.body.prodCat,
                 prodStatus: req.body.prodStatus,
-                prodSpecs: req.body.prodSpecs
+                prodSpecs: req.body.prodSpecs,
+                prodCostInAUD: req.body.prodCostInAUD,
+                prodCostInRMB: req.body.prodCostInRMB,
+                prodCostEndDate: req.body.prodCostEndDate
             });
         } else {
             var newProd = new Product({
@@ -49,7 +52,10 @@ conn.once('open', () => {
                 prodBrand: req.body.prodBrand,
                 prodCat: req.body.prodCat,
                 prodStatus: req.body.prodStatus,
-                prodSpecs: req.body.prodSpecs
+                prodSpecs: req.body.prodSpecs,
+                prodCostInAUD: req.body.prodCostInAUD,
+                prodCostInRMB: req.body.prodCostInRMB,
+                prodCostEndDate: req.body.prodCostEndDate
             });
         }
         console.log('newProd => ' + newProd);

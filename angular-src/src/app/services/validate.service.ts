@@ -21,7 +21,7 @@ export class ValidateService {
   }
 
   validateLoginForm(loginDetails) {
-    if (loginDetails.email== "" || loginDetails.password == "") {
+    if (loginDetails.email == "" || loginDetails.password == "") {
       return false;
     } else {
       return true;
@@ -30,8 +30,7 @@ export class ValidateService {
 
   isNumber(input) {
     var numbers = /^[0-9]+$/;
-    if(input.match(numbers))
-    {
+    if (input.match(numbers)) {
       return true;
     }
     else {
@@ -43,7 +42,11 @@ export class ValidateService {
   // Validate the product details
   validateProdForm(prodDets) {
     console.log(prodDets.prodName);
-    if (prodDets.prodName== undefined || prodDets.prodBrand==undefined || prodDets.prodQuantity==undefined || prodDets.prodCat==undefined || prodDets.prodRate==undefined || prodDets.prodStatus==undefined){
+    if (prodDets.prodName == undefined || prodDets.prodBrand == undefined ||
+      prodDets.prodQuantity == undefined || prodDets.prodCat == undefined ||
+      prodDets.prodRate == undefined || prodDets.prodStatus == undefined ||
+      prodDets.prodCostInAUD == undefined || prodDets.prodCostInRMB == undefined ||
+      prodDets.prodCostEndDate == undefined) {
       return false;
     } else {
       return true;

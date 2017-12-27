@@ -4,9 +4,11 @@ export interface IOrder {
   orderNb?: string;
   orderDate?: string;
   clientName?: string;
+  clientAliases?: string;
   contactNb?: number;
   address?: string;
   products?: IOProduct[];
+  //products?: any[];
   subAmount?: number;
   totalAmount?: number;
   profit?: number;

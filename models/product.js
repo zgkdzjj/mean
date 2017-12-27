@@ -15,6 +15,9 @@ const ProductSchema = mongoose.Schema({
     //prodImg: { data: Buffer, contentType: String },
     prodSpecs: {type: String},
     //prodColor: {type: String}
+    prodCostInAUD: {type: Number},
+    prodCostInRMB: {type: Number},
+    prodCostEndDate: {type: String}
 });
 
 // Define product model

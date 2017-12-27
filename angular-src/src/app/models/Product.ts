@@ -9,4 +9,7 @@ export interface IProduct {
   prodStatus?: string;
   prodImg?: Object;
   prodSpecs?: string;
+  prodCostInAUD?: number;
+  prodCostInRMB?: number;
+  prodCostEndDate?: string;
 }
