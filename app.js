@@ -13,7 +13,12 @@ const brands = require('./routes/brands');
 const categories = require('./routes/categories');
 const products = require('./routes/products');
 const orders = require('./routes/orders');
+const contacts = require('./routes/contacts');
 const config = require('./config/database');
+const Grid = require('gridfs-stream');
+Grid.mongo = mongoose.mongo;
+const conn = mongoose.connection;
+
 
 
 
@@ -29,7 +34,7 @@ mongoose.connect(config.database);
 //When successfully connected
 mongoose.connection.on('connected', () => {
     console.log('Mongoose default connection open to ' + config.database);
-
+    exports.gfs = Grid(conn.db);
 });
 
 // If the connection throws an error
@@ -45,10 +50,10 @@ mongoose.connection.on('disconnected', () => {
 
 //app.set('mongoInstance', mongoose.connection.db);
 
-//const port = 3000;
+const port = 3000;
 
 // Ready for development
-const port = process.env.PORT || 8080;
+//const port = process.env.PORT || 8080;
 
 // CORS Middleware
 app.use(cors());
@@ -82,6 +87,9 @@ app.use('/products', products);
 // Add and remove orders
 app.use('/orders', orders);
 
+// Add and remove contacts
+app.use('/contacts', contacts);
+
 // Index Route
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint')
@@ -92,3 +100,6 @@ app.listen(port,() => {
     console.log('Server started on port ' + port)
 });
 
+//module.exports = gfs;
+module.exports = Grid;
+module.exports = conn;

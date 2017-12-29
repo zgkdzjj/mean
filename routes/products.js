@@ -222,7 +222,7 @@ function saveFileToDB(path, req, res) {
             })
         })
         .on("err", function () {
-            res.json({success: true, msg: 'Error uploading image'});
+            res.json({success: false, msg: 'Error uploading image'});
         })
         .pipe(writestream);
 }

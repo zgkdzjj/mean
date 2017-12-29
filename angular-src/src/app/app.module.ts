@@ -36,6 +36,9 @@ import {ProductService} from "./services/product.service";
 import { OrderComponent } from './components/order/order.component';
 import {OrderService} from "./services/order.service";
 import { ManageorderComponent } from './components/manageorder/manageorder.component';
+import { ContactDetailsComponent } from './components/contacts/contact-details/contact-details.component';
+import { ContactListComponent } from './components/contacts/contact-list/contact-list.component';
+import {ContactService} from "./services/contact.service";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -48,7 +51,8 @@ const appRoutes: Routes = [
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuardService]},
   {path: 'product', component: ProductComponent, canActivate: [AuthGuardService]},
   {path: 'order', component: OrderComponent, canActivate: [AuthGuardService]},
-  {path: 'manageorder', component: ManageorderComponent, canActivate: [AuthGuardService]}
+  {path: 'manageorder', component: ManageorderComponent, canActivate: [AuthGuardService]},
+  {path: 'contact', component: ContactListComponent, canActivate: [AuthGuardService]}
 
 ];
 
@@ -65,7 +69,10 @@ const appRoutes: Routes = [
     CategoryComponent,
     ProductComponent,
     OrderComponent,
-    ManageorderComponent
+    ManageorderComponent,
+
+    ContactDetailsComponent,
+    ContactListComponent
   ],
 
 
@@ -104,7 +111,8 @@ const appRoutes: Routes = [
     ConfirmationService,
     CategoryService,
     ProductService,
-    OrderService
+    OrderService,
+    ContactService
   ],
   bootstrap: [AppComponent]
 })

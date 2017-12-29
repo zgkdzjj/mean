@@ -50,7 +50,7 @@
 </p-panel>
 
 
-<p-dialog header="Order Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+<p-dialog header="Order Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [dismissableMask]="true"
           [width]="600" *ngIf="order">
 
   <div class="ui-grid ui-grid-responsive ui-fluid">
