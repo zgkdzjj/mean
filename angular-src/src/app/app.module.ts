@@ -21,30 +21,46 @@ import {BrandComponent} from './components/brand/brand.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
-
-import { SharedModule} from 'primeng/primeng';
-import {DialogModule, ButtonModule, InputTextModule,PanelModule, ConfirmDialogModule,ConfirmationService,
-GrowlModule, MessageModule, MessagesModule, BreadcrumbModule, MenuItem, FileUploadModule, OverlayPanelModule, Header, Footer} from 'primeng/primeng';
+import {SharedModule} from 'primeng/primeng';
+import {
+  DialogModule,
+  ButtonModule,
+  InputTextModule,
+  PanelModule,
+  ConfirmDialogModule,
+  ConfirmationService,
+  GrowlModule,
+  MessageModule,
+  MessagesModule,
+  BreadcrumbModule,
+  MenuItem,
+  FileUploadModule,
+  OverlayPanelModule,
+  Header,
+  Footer,
+  SidebarModule,
+  LightboxModule
+} from 'primeng/primeng';
 import {DataTableModule} from "primeng/primeng";
 import {DropdownModule} from "primeng/primeng";
 import {CalendarModule} from "primeng/primeng";
 import {BrandService} from "./services/brand.service";
-import { CategoryComponent } from './components/category/category.component';
+import {CategoryComponent} from './components/category/category.component';
 import {CategoryService} from "./services/category.service";
-import { ProductComponent } from './components/product/product.component';
+import {ProductComponent} from './components/product/product.component';
 import {ProductService} from "./services/product.service";
-import { OrderComponent } from './components/order/order.component';
+import {OrderComponent} from './components/order/order.component';
 import {OrderService} from "./services/order.service";
-import { ManageorderComponent } from './components/manageorder/manageorder.component';
-import { ContactDetailsComponent } from './components/contacts/contact-details/contact-details.component';
-import { ContactListComponent } from './components/contacts/contact-list/contact-list.component';
+import {ManageorderComponent} from './components/manageorder/manageorder.component';
+import {ContactDetailsComponent} from './components/contacts/contact-details/contact-details.component';
+import {ContactListComponent} from './components/contacts/contact-list/contact-list.component';
 import {ContactService} from "./services/contact.service";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  //{path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: 'brand', component: BrandComponent, canActivate: [AuthGuardService]},
@@ -99,7 +115,9 @@ const appRoutes: Routes = [
     BreadcrumbModule,
     FileUploadModule,
     OverlayPanelModule,
-    CalendarModule
+    CalendarModule,
+    SidebarModule,
+    LightboxModule
 
   ],
   entryComponents: [],

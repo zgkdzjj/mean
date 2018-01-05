@@ -32,3 +32,6 @@ module.exports.removeContact = function (id, callback) {
 module.exports.updateContact = function (id, updatedContact, callback) {
     Contact.findOneAndUpdate({_id: id}, updatedContact, {new: false}, callback)
 };
+
+module.exports.getImgByID = function (id, callback) {
+}

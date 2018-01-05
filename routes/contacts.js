@@ -57,7 +57,7 @@ router.post('/', cpUpload, (req, res, next) => {
                 })
 
             }
-            res.json({success: true, msg: 'Contact info added.'});
+            res.json({success: true, msg: 'Contact info added.', data: newContact});
         }
     })
 });
@@ -162,6 +162,7 @@ router.put('/:contactID', cpUpload, (req, res, next) => {
     let updatedContact = req.body;
 
     // Check If update the image files
+    if (req.files != undefined) {
     if (req.files['avatar']) {
         updatedContact.Id1Img = {
             "name" : req.files['avatar'][0].filename
@@ -171,6 +172,7 @@ router.put('/:contactID', cpUpload, (req, res, next) => {
         updatedContact.Id2Img = {
             "name" : req.files['gallery'][0].filename
         }
+    }
     }
 
     console.log('req.files => ' + JSON.stringify(req.files, null, 4));
@@ -236,6 +238,39 @@ router.put('/:contactID', cpUpload, (req, res, next) => {
 })
 ;
 
+// Get an image
+router.get('/image/:imgName',(req, res, next) => {
+    const gfs = app.gfs;
+    var data = '';
+    // streaming from gridfs
+    var readstream = gfs.createReadStream({
+        filename: req.params.imgName
+    });
+
+    res.contentType('image/png');
+
+
+    //error handling, e.g. file does not exist
+    readstream.on('error', function (err) {
+        console.log('An error occurred!', err);
+        throw err;
+    });
+    readstream.pipe(res);
+
+    /*readstream.on('data', function(chunk) {
+        data+=chunk;
+    });
+    readstream.on('end', function() {
+        res.json({success: true, msg: 'image loaded', data: JSON.stringify(data)})
+    });
+*/
+    /*gfs.files.find({ filename: req.params.imgName }).toArray(function (err, files) {
+        if (err) {
+            console.log('err => ' + err);
+        }
+        console.log(files);
+    })*/
+});
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {

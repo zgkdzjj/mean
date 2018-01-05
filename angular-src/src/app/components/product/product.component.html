@@ -1,64 +1,66 @@
 <p-growl [value]="msg" [life]="3000"></p-growl>
 
-<p-breadcrumb [model]="items"></p-breadcrumb>
-<br>
-<br>
+<div class="container">
+  <p-breadcrumb [model]="items"></p-breadcrumb>
+  <br>
+  <br>
 
-<!--
-<p-messages [(value)]="imgMsg" ></p-messages>
--->
-<p-panel>
-  <p-header>
-    <div class="ui-helper-clearfix">
-      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Manage Product</span>
-      <button pButton label="Add Product" icon="fa-plus" style="float: right;" (click)="displayDialog()"></button>
+  <!--
+  <p-messages [(value)]="imgMsg" ></p-messages>
+  -->
+  <p-panel>
+    <p-header>
+      <div class="ui-helper-clearfix">
+        <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Manage Product</span>
+        <button pButton label="Add Product" icon="fa-plus" style="float: right;" (click)="displayDialog()"></button>
+      </div>
+    </p-header>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input #gb type="text" pInputText size="50" placeholder="Global Filter">
     </div>
-  </p-header>
-  <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
-    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-    <input #gb type="text" pInputText size="50" placeholder="Global Filter">
-  </div>
 
-  <p-dataTable [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]" [value]="products"
-               selectionMode="single" [(selection)]="selectedBrand" (onRowDblclick)="onRowDblclick($event)">
+    <p-dataTable [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]" [value]="products"
+                 selectionMode="single" [(selection)]="selectedBrand" (onRowDblclick)="onRowDblclick($event)">
 
-    <p-column [style]="{'width':'10%','text-align':'center'}" header="Image" [editable]="false">
-      <ng-template let-img="rowData" pTemplate="body">
+      <p-column [style]="{'width':'10%','text-align':'center'}" header="Image" [editable]="false">
+        <ng-template let-img="rowData" pTemplate="body">
 
-        <button type="button" pButton (click)="showImg($event,img,op3);" icon="fa-search"></button>
-      </ng-template>
+          <button type="button" pButton (click)="showImg($event,img,op3);" icon="fa-search"></button>
+        </ng-template>
 
-    </p-column>
+      </p-column>
 
 
-    <p-column field="prodName" header="Name" [editable]="false"></p-column>
-    <p-column field="prodBrand" header="Brand" [editable]="false"></p-column>
-    <p-column field="prodCat" header="Category" [editable]="false"></p-column>
-    <p-column field="prodQuantity" header="Quantity" [editable]="false"></p-column>
-    <p-column field="prodCostInAUD" header="Price In AUD" [editable]="false"></p-column>
-    <p-column field="prodCostInRMB" header="Price In RMB" [editable]="false"></p-column>
-    <p-column field="prodRate" header="Retail Price" [editable]="false"></p-column>
-    <p-column field="prodCostEndDate" header="Promotion End Date" [editable]="false"></p-column>
-    <p-column field="prodSpecs" header="Specs" [editable]="false"></p-column>
-    <p-column field="prodStatus" header="Status" [editable]="false"></p-column>
+      <p-column field="prodName" header="Name" [editable]="false"></p-column>
+      <p-column field="prodBrand" header="Brand" [editable]="false"></p-column>
+      <p-column field="prodCat" header="Category" [editable]="false"></p-column>
+      <p-column field="prodQuantity" header="Quantity" [editable]="false"></p-column>
+      <p-column field="prodCostInAUD" header="Price In AUD" [editable]="false"></p-column>
+      <p-column field="prodCostInRMB" header="Price In RMB" [editable]="false"></p-column>
+      <p-column field="prodRate" header="Retail Price" [editable]="false"></p-column>
+      <p-column field="prodCostEndDate" header="Promotion End Date" [editable]="false"></p-column>
+      <p-column field="prodSpecs" header="Specs" [editable]="false"></p-column>
+      <p-column field="prodStatus" header="Status" [editable]="false"></p-column>
 
 
-    <p-column>
-      <ng-template pTemplate="header">
-        Edit
-      </ng-template>
-      <ng-template let-row="rowData" pTemplate="body">
-        <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)"></button>
-        <button type="button" pButton icon="fa-remove" (click)="onRemoveClick(row)"></button>
-      </ng-template>
-    </p-column>
+      <p-column>
+        <ng-template pTemplate="header">
+          Edit
+        </ng-template>
+        <ng-template let-row="rowData" pTemplate="body">
+          <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)"></button>
+          <button type="button" pButton icon="fa-remove" (click)="onRemoveClick(row)"></button>
+        </ng-template>
+      </p-column>
 
 
-  </p-dataTable>
-  <p-footer>
-    <button pButton label="Add Product" icon="fa-plus" (click)="displayDialog()"></button>
-  </p-footer>
-</p-panel>
+    </p-dataTable>
+    <p-footer>
+      <button pButton label="Add Product" icon="fa-plus" (click)="displayDialog()"></button>
+    </p-footer>
+  </p-panel>
+</div>
 
 
 <p-dialog header="Product Details" [(visible)]="display" showEffect="fade" [modal]="true" [dismissableMask]="true"
@@ -69,7 +71,7 @@
       <div class="ui-grid-col-4"><label for="avatar">Image(optional) ： </label></div>
       <div class="ui-grid-col-8">
         <div>
-          <p-fileUpload #fileInput url="http://localhost:3000/products/" [showUploadButton]="false" id="avatar"
+          <p-fileUpload #fileInput [showUploadButton]="false" id="avatar"
                         [showCancelButton]="false" name="avatar" accept="image/*" maxFileSize="1000000"
                         (onSelect)="onSelect($event)" type="file" value="null"></p-fileUpload>
         </div>
@@ -106,7 +108,6 @@
         <input pInputText id="prodQuantity" [(ngModel)]="prod.prodQuantity" value="0" type="number" required/>
       </div>
     </div>
-
 
 
     <div class="ui-grid-row">
@@ -148,11 +149,11 @@
                 <input pInputText id="prodCostEndDate" [(ngModel)]="prod.prodCostEndDate" value="0" placeholder="Promotion End Date"/>
         -->
 
-        <p-calendar appendTo="body" [(ngModel)]="prod.prodCostEndDate" [showIcon]="true" placeholder="Promotion End Date"
+        <p-calendar appendTo="body" [(ngModel)]="prod.prodCostEndDate" [showIcon]="true"
+                    placeholder="Promotion End Date"
                     dateFormat="yy-mm-dd" dataType="string"></p-calendar>
       </div>
     </div>
-
 
 
     <div class="ui-grid-row">

@@ -1,0 +1,81 @@
+<div class="container">
+  <!--
+    <app-contact-details [contact]="selectedContact"></app-contact-details>
+  -->
+  <p-panel>
+    <p-header>
+      <div class="ui-helper-clearfix">
+            <span class="ui-panel-title"
+                  style="font-size:16px;display:inline-block;margin-top:2px">Manage Contacts</span>
+        <!--
+              <button pButton label="Add Product" icon="fa-plus" style="float: right;" ></button>
+        -->
+      </div>
+    </p-header>
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+    </div>
+
+    <p-dataTable [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+                 [value]="contacts"
+                 selectionMode="single" [(selection)]="selectedContact" (onRowSelect)="onRowSelect($event)">
+
+      <p-column [style]="{'width':'10%','text-align':'center'}" header="ID Image" [editable]="false">
+        <ng-template let-row="rowData" pTemplate="body">
+
+          <button type="button" pButton *ngIf="row.Id1Img" (click)="showImg($event,row.Id1Img.name, op3);"
+                  icon="fa-address-card"></button>
+          <button type="button" pButton *ngIf="row.Id2Img" (click)="showImg($event,row.Id2Img.name, op3);"
+                  icon="fa-address-card"></button>
+
+        </ng-template>
+
+      </p-column>
+
+      <p-column field="clientName" header="Name" [editable]="false"></p-column>
+      <p-column field="clientAliases" header="Aliases" [editable]="false"></p-column>
+      <p-column field="address" header="Address" [editable]="false"></p-column>
+      <p-column field="contactNb" header="Contact NO." [editable]="false"></p-column>
+
+
+      <p-column>
+        <ng-template pTemplate="header">
+          Edit
+        </ng-template>
+        <ng-template let-row="rowData" let-index="rowIndex" pTemplate="body">
+          <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)"></button>
+          <button type="button" pButton icon="fa-remove" (click)="onDeleteClick(row, index)"></button>
+        </ng-template>
+      </p-column>
+
+
+    </p-dataTable>
+
+    <p-footer>
+      <button pButton label="New Contact" icon="fa-plus" (click)="createNewContact()"></button>
+    </p-footer>
+  </p-panel>
+
+</div>
+<p-overlayPanel #op3>
+  <img class="ui-overlaypanel-content img-fluid" [src]="imageToShow">
+</p-overlayPanel>
+
+<!--Confirmation Dialog and Confirmation Message-->
+<p-growl [value]="msgs"></p-growl>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+
+<p-sidebar [(visible)]="visibleSidebar" position="right" [style]="{width:'400px'}">
+  <app-contact-details
+    [contact]="selectedContact"
+    (contactCreated)="handleContactCreated($event)"
+    (contactUpdated)="handleCotnactUpdated($event)"
+
+    (cancelHandler)="handleCancal()"
+
+  ></app-contact-details>
+</p-sidebar>
+
+
+

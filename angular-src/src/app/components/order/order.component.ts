@@ -10,6 +10,8 @@ import {Footer} from 'primeng/primeng';
 import {Message} from "primeng/primeng";
 import {noUndefined} from "@angular/compiler/src/util";
 import {ActivatedRoute} from "@angular/router";
+import {ContactService} from "../../services/contact.service";
+import {Contact} from "../../models/Contact";
 
 class OProduct implements IOProduct {
   constructor(public name?, public rate?, public quantity?, public total?) {
@@ -60,13 +62,17 @@ export class OrderComponent implements OnInit {
   paymentStatuses: SelectItem[];
   msgs: Message[] = [];
   date1: Date;
+  displayContactList: Boolean;
+  contacts: Contact[];
+  selectedContact: any;
 
 
   private items: MenuItem[];
 
   constructor(private orderService: OrderService,
               private productService: ProductService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private contactService: ContactService) {
     this.route.queryParams.subscribe(params => {
       console.log('params =>' + JSON.stringify(params,null,4));
       // Check queryParams is empty or not, if empty do nothing, if not then load order info
@@ -362,6 +368,26 @@ export class OrderComponent implements OnInit {
   // onSelect Date
   onSelectDate() {
     console.log('order.orderDate => ' + this.order.orderDate);
+  }
+
+  // On Click Import
+  onImportClick() {
+    this.displayContactList = true;
+
+    this.contactService.getContacts().subscribe(contacts => {
+      console.log('contacts => ' + JSON.stringify(contacts, null, 4));
+      this.contacts = contacts.data;
+    });
+  }
+
+  // Select Contact
+  selectContact() {
+    console.log('selectedContact => ' + JSON.stringify(this.selectedContact, null, 4));
+    this.order.clientName = this.selectedContact.clientName;
+    this.order.clientAliases = this.selectedContact.clientAliases;
+    this.order.contactNb = this.selectedContact.contactNb;
+    this.order.address = this.selectedContact.address;
+    this.displayContactList = false;
   }
 
 

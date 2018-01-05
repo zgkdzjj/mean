@@ -22,7 +22,6 @@
         "styles.css",
         "../node_modules/primeng/resources/primeng.css",
         "../node_modules/primeng/resources/themes/omega/theme.scss"
-
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -1,172 +1,174 @@
-<p-breadcrumb [model]="items"></p-breadcrumb>
-<br>
-<br>
+<div class="container">
+  <p-breadcrumb [model]="items"></p-breadcrumb>
+  <br>
+  <br>
 
-<!--
-<p-messages [(value)]="msgs" ></p-messages>
--->
+  <!--
+  <p-messages [(value)]="msgs" ></p-messages>
+  -->
 
-<p-growl [(value)]="msgs"></p-growl>
-<p-panel>
-  <p-header>
-    Add Order
-  </p-header>
+  <p-growl [(value)]="msgs"></p-growl>
+  <p-panel>
+    <p-header>
+      Add Order
+    </p-header>
 
-  <!--<div class="ui-g ui-fluid">
-    <div class="ui-g-12 ui-md-6">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
-        <input type="text" pInputText placeholder="Client Name" >
-        <p-calendar [(ngModel)]="value" placeholder="Order Date"></p-calendar>
+    <!--<div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-6">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-calendar"></i></span>
+          <input type="text" pInputText placeholder="Client Name" >
+          <p-calendar [(ngModel)]="value" placeholder="Order Date"></p-calendar>
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-6">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+          <input type="text" pInputText placeholder="Client Name" >
+        </div>
+      </div>
+    </div>-->
+
+    <div class="ui-g ui-fluid">
+
+      <div class="ui-g-12 ui-md-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+          <input type="text" pInputText placeholder="Client Name" [(ngModel)]="order.clientName">
+          <button pButton type="button" label="Import" (click)="onImportClick()"></button>
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+          <input type="text" pInputText placeholder="Client Aliases" [(ngModel)]="order.clientAliases">
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-3">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-phone"></i></span>
+          <input type="text" pInputText placeholder="Phone Number" [(ngModel)]="order.contactNb">
+        </div>
+      </div>
+
+      <div class="ui-g-12 ui-md-3">
+        <p-calendar [(ngModel)]="order.orderDate" [showIcon]="true" placeholder="Order Date" dateFormat="yy-mm-dd"
+                    (onSelect)="onSelectDate()" dataType="string"></p-calendar>
+      </div>
+
+    </div>
+
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12 ui-md-6">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-home"></i></span>
+          <input type="text" pInputText placeholder="Shipment Address" [(ngModel)]="order.address">
+        </div>
       </div>
     </div>
+    <p-dataTable [value]="oproducts" selectionMode="single" [(selection)]="selectedProd"
+                 (onRowSelect)="onRowSelect($event)" (onValueChange)="updateTotal()" [responsive]="true">
+      <p-header>Purchase List</p-header>
+      <p-column field="name" header="Name"></p-column>
+      <p-column field="rate" header="Rate"></p-column>
+      <p-column field="quantity" header="Quantity"></p-column>
+      <p-column field="total" header="Total"></p-column>
+      <p-footer>
+        <div class="ui-helper-clearfix" style="width:100%">
+          <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()"
+                  label="Add"></button>
+        </div>
+      </p-footer>
+    </p-dataTable>
 
-    <div class="ui-g-12 ui-md-6">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-        <input type="text" pInputText placeholder="Client Name" >
+    <br>
+    <br>
+
+    <div class="ui-grid ui-grid-responsive ui-fluid">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="subAmount">Sub Amount</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="subAmount" [(ngModel)]="order.subAmount" (keyup)="updateTotal()"/>
+        </div>
+
+
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="paidAmount">Paid Amount</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="paidAmount" [(ngModel)]="order.paidAmount" (keyup)="calDue()"/>
+        </div>
       </div>
-    </div>
-  </div>-->
 
-  <div class="ui-g ui-fluid">
+      <br>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="shipmentFee">Shipment Fee</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="shipmentFee" [(ngModel)]="order.shipmentFee" (keyup)="updateTotal()"/>
+        </div>
 
-    <div class="ui-g-12 ui-md-3">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-        <input type="text" pInputText placeholder="Client Name" [(ngModel)]="order.clientName">
+
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="dueAmount">Due Amount</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="dueAmount" [(ngModel)]="order.dueAmount"/>
+        </div>
       </div>
-    </div>
 
-    <div class="ui-g-12 ui-md-3">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-        <input type="text" pInputText placeholder="Client Aliases" [(ngModel)]="order.clientAliases">
+      <br>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="profit">Profit %</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="profit" [(ngModel)]="order.profit" (keyup)="updateTotal()"/>
+        </div>
+
+
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="paymentType">Payment Type</label></div>
+        <div class="ui-grid-col-3">
+          <!--
+                  <input pInputText id="paymentType" [(ngModel)]="order.paymentType"/>
+          -->
+          <p-dropdown appendTo="body" [options]="paymentTypes" id="paymentType" [(ngModel)]="order.paymentType"
+                      placeholder="Select Payment Type" [autoWidth]="false"></p-dropdown>
+        </div>
       </div>
-    </div>
 
-    <div class="ui-g-12 ui-md-3">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon"><i class="fa fa-phone"></i></span>
-        <input type="text" pInputText placeholder="Phone Number" [(ngModel)]="order.contactNb">
+      <br>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="discount">Discount</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="discount" [(ngModel)]="order.discount" (keyup)="updateTotal()"/>
+        </div>
+
+
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="paymentStatus">Payment Status</label></div>
+        <div class="ui-grid-col-3">
+          <!--<input pInputText id="paymentStatus" [(ngModel)]="order.paymentStatus"/>-->
+          <p-dropdown appendTo="body" [options]="paymentStatuses" id="paymentStatus" [(ngModel)]="order.paymentStatus"
+                      placeholder="Select Payment Status" [autoWidth]="false"></p-dropdown>
+        </div>
       </div>
-    </div>
 
-    <div class="ui-g-12 ui-md-3">
-      <p-calendar [(ngModel)]="order.orderDate" [showIcon]="true" placeholder="Order Date" dateFormat="yy-mm-dd"
-                  (onSelect)="onSelectDate()" dataType="string"></p-calendar>
-    </div>
-
-  </div>
-
-
-  <div class="ui-g ui-fluid">
-    <div class="ui-g-12 ui-md-6">
-      <div class="ui-inputgroup">
-        <span class="ui-inputgroup-addon"><i class="fa fa-home"></i></span>
-        <input type="text" pInputText placeholder="Shipment Address" [(ngModel)]="order.address">
+      <br>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2" style="text-align: center;"><label for="grandTotal">Grand Total</label></div>
+        <div class="ui-grid-col-3">
+          <input type="number" id="grandTotal" [(ngModel)]="order.grandTotal"/>
+        </div>
       </div>
+
     </div>
-  </div>
-  <p-dataTable [value]="oproducts" selectionMode="single" [(selection)]="selectedProd"
-               (onRowSelect)="onRowSelect($event)" (onValueChange)="updateTotal()" [responsive]="true">
-    <p-header>Purchase List</p-header>
-    <p-column field="name" header="Name"></p-column>
-    <p-column field="rate" header="Rate"></p-column>
-    <p-column field="quantity" header="Quantity"></p-column>
-    <p-column field="total" header="Total"></p-column>
+
+    <br>
     <p-footer>
-      <div class="ui-helper-clearfix" style="width:100%">
-        <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()"
-                label="Add"></button>
-      </div>
+      <button pButton type="button" icon="fa-plus" label="Save" class="ui-button-info" (click)="saveOrder()"></button>
+      <button pButton type="button" icon="fa-list" label="Reset" class="ui-button-success"
+              (click)="resetOrder()"></button>
     </p-footer>
-  </p-dataTable>
 
-  <br>
-  <br>
-
-  <div class="ui-grid ui-grid-responsive ui-fluid">
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="subAmount">Sub Amount</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="subAmount" [(ngModel)]="order.subAmount" (keyup)="updateTotal()"/>
-      </div>
-
-
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="paidAmount">Paid Amount</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="paidAmount" [(ngModel)]="order.paidAmount" (keyup)="calDue()"/>
-      </div>
-    </div>
-
-    <br>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="shipmentFee">Shipment Fee</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="shipmentFee" [(ngModel)]="order.shipmentFee" (keyup)="updateTotal()"/>
-      </div>
-
-
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="dueAmount">Due Amount</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="dueAmount" [(ngModel)]="order.dueAmount"/>
-      </div>
-    </div>
-
-    <br>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="profit">Profit %</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="profit" [(ngModel)]="order.profit" (keyup)="updateTotal()"/>
-      </div>
-
-
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="paymentType">Payment Type</label></div>
-      <div class="ui-grid-col-3">
-        <!--
-                <input pInputText id="paymentType" [(ngModel)]="order.paymentType"/>
-        -->
-        <p-dropdown appendTo="body" [options]="paymentTypes" id="paymentType" [(ngModel)]="order.paymentType"
-                    placeholder="Select Payment Type" [autoWidth]="false"></p-dropdown>
-      </div>
-    </div>
-
-    <br>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="discount">Discount</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="discount" [(ngModel)]="order.discount" (keyup)="updateTotal()"/>
-      </div>
-
-
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="paymentStatus">Payment Status</label></div>
-      <div class="ui-grid-col-3">
-        <!--<input pInputText id="paymentStatus" [(ngModel)]="order.paymentStatus"/>-->
-        <p-dropdown appendTo="body" [options]="paymentStatuses" id="paymentStatus" [(ngModel)]="order.paymentStatus"
-                    placeholder="Select Payment Status" [autoWidth]="false"></p-dropdown>
-      </div>
-    </div>
-
-    <br>
-    <div class="ui-grid-row">
-      <div class="ui-grid-col-2" style="text-align: center;"><label for="grandTotal">Grand Total</label></div>
-      <div class="ui-grid-col-3">
-        <input type="number" id="grandTotal" [(ngModel)]="order.grandTotal"/>
-      </div>
-    </div>
-
-  </div>
-
-  <br>
-  <p-footer>
-    <button pButton type="button" icon="fa-plus" label="Save" class="ui-button-info" (click)="saveOrder()"></button>
-    <button pButton type="button" icon="fa-list" label="Reset" class="ui-button-success"
-            (click)="resetOrder()"></button>
-  </p-footer>
-
-</p-panel>
-
+  </p-panel>
+</div>
 
 <p-dialog header="Purchase Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
           [width]="400">
@@ -205,5 +207,25 @@
       <button type="button" pButton icon="fa-close" (click)="delPurList()" label="Delete"></button>
       <button type="button" pButton icon="fa-check" (click)="savePurList()" label="Save"></button>
     </div>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog header="Contact List" [(visible)]="displayContactList">
+  <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+  </div>
+  <p-dataTable [globalFilter]="gb" [rows]="10" [value]="contacts" [style]="{'width':'500px'}" selectionMode="single"
+               [(selection)]="selectedContact" (onRowDblclick)="selectContact()">
+    <p-column field="clientName" header="Name"></p-column>
+    <p-column field="clientAliases" header="Aliases"></p-column>
+    <p-column field="contactNb" header="Contact NO."></p-column>
+    <p-column field="address" header="Address"></p-column>
+  </p-dataTable>
+
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="selectContact()" label="Select"></button>
+    <button type="button" pButton icon="fa-close" (click)="displayContactList=false" label="Cancel"></button>
   </p-footer>
 </p-dialog>
