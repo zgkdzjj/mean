@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {OrderService} from "../../services/order.service";
 import {IOrder} from "../../models/Order";
 import {MenuItem, SelectItem} from "primeng/primeng";
@@ -6,8 +6,10 @@ import {Order} from "../order/order.component";
 import {ProductService} from "../../services/product.service";
 import {IOProduct} from "../../models/OProduct";
 import {Message} from "primeng/primeng";
-import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
-import { NavigationExtras, Router} from "@angular/router";
+import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
+import {NavigationExtras, Router} from "@angular/router";
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-manageorder',
@@ -28,10 +30,16 @@ export class ManageorderComponent implements OnInit {
   private orderStatus: SelectItem[];
   paymentTypes: any[];
   paymentStatuses: any[];
+
+  @ViewChild('orderContent') orderContent: ElementRef;
+  //@ViewChild('print') print: ElementRef;
+  @ViewChild('content') content: ElementRef;
+
   constructor(private orderService: OrderService,
               private productService: ProductService,
               private confirmationService: ConfirmationService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.items = [
@@ -122,7 +130,7 @@ export class ManageorderComponent implements OnInit {
 
   }
 
-  onEditQuantity(event){
+  onEditQuantity(event) {
     console.log('Table value changed');
     console.log('event => ' + JSON.stringify(event, null, 4));
     //console.log('row => ' + JSON.stringify(row, null, 4));
@@ -164,7 +172,7 @@ export class ManageorderComponent implements OnInit {
     console.log('this updated order => ' + JSON.stringify(this.order, null, 4));
     this.orderService.updateOrder(this.order).subscribe(data => {
       console.log('data => ' + JSON.stringify(data, null, 4));
-      if(data.success) {
+      if (data.success) {
         this.msgs = [];
         this.msgs.push({severity: 'success', detail: 'Order Updated.'});
       } else {
@@ -174,6 +182,9 @@ export class ManageorderComponent implements OnInit {
     });
     this.displayDialog = false;
   }
+
+  // Export order details to PDF
+  downloadPdf() {}
 
   // Delete Orde
   onRemoveOrderClick(row) {
@@ -185,10 +196,10 @@ export class ManageorderComponent implements OnInit {
       accept: () => {
         this.orderService.deleteOrder(row).subscribe(data => {
           if (data.success) {
-            this.msgs = [{severity:'info', summary:'Confirmed', detail:'Order deleted'}];
+            this.msgs = [{severity: 'info', summary: 'Confirmed', detail: 'Order deleted'}];
 
           } else {
-            this.msgs = [{severity:'error', summary:'Error', detail:'Failed to delete order '}];
+            this.msgs = [{severity: 'error', summary: 'Error', detail: 'Failed to delete order '}];
           }
           // Get orders from the db
           this.orderService.getOrders().subscribe(orders => {
@@ -199,7 +210,7 @@ export class ManageorderComponent implements OnInit {
 
       },
       reject: () => {
-        this.msgs = [{severity:'info', summary:'Rejected', detail:'You have rejected'}];
+        this.msgs = [{severity: 'info', summary: 'Rejected', detail: 'You have rejected'}];
       }
     });
 
@@ -207,12 +218,11 @@ export class ManageorderComponent implements OnInit {
   }
 
 
-
-  onRemoveClick(row ,index ) {
+  onRemoveClick(row, index) {
     console.log('row => ' + JSON.stringify(row, null, 4));
     console.log('index => ' + index);
     //this.order.products.splice(i, 1);
-    this.order.products = this.order.products.filter((val,i) => i!=index);
+    this.order.products = this.order.products.filter((val, i) => i != index);
     this.updateTotal();
   }
 
@@ -227,7 +237,7 @@ export class ManageorderComponent implements OnInit {
     }
     this.order.subAmount = sub;
     // update grand total
-    this.order.grandTotal = (this.order.subAmount + this.order.shipmentFee)*(1 + this.order.profit/100) - this.order.discount;
+    this.order.grandTotal = (this.order.subAmount + this.order.shipmentFee) * (1 + this.order.profit / 100) - this.order.discount;
 
     //update due amount
     this.order.dueAmount = this.order.grandTotal - this.order.paidAmount;
@@ -248,7 +258,7 @@ export class ManageorderComponent implements OnInit {
     console.log('clone order pressed');
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "orderInfo" : orderInfo
+        "orderInfo": orderInfo
       }
 
     };

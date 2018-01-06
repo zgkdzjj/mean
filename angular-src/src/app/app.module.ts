@@ -39,7 +39,8 @@ import {
   Header,
   Footer,
   SidebarModule,
-  LightboxModule
+  LightboxModule,
+  TooltipModule
 } from 'primeng/primeng';
 import {DataTableModule} from "primeng/primeng";
 import {DropdownModule} from "primeng/primeng";
@@ -117,7 +118,8 @@ const appRoutes: Routes = [
     OverlayPanelModule,
     CalendarModule,
     SidebarModule,
-    LightboxModule
+    LightboxModule,
+    TooltipModule
 
   ],
   entryComponents: [],

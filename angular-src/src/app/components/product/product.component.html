@@ -20,13 +20,13 @@
       <input #gb type="text" pInputText size="50" placeholder="Global Filter">
     </div>
 
-    <p-dataTable [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]" [value]="products"
+    <p-dataTable #dt [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]" [value]="products"
                  selectionMode="single" [(selection)]="selectedBrand" (onRowDblclick)="onRowDblclick($event)">
 
       <p-column [style]="{'width':'10%','text-align':'center'}" header="Image" [editable]="false">
         <ng-template let-img="rowData" pTemplate="body">
 
-          <button type="button" pButton (click)="showImg($event,img,op3);" icon="fa-search"></button>
+          <button *ngIf="img.prodImgName" type="button" pButton (click)="showImg($event,img,op3);" icon="fa-search"></button>
         </ng-template>
 
       </p-column>
@@ -58,6 +58,8 @@
     </p-dataTable>
     <p-footer>
       <button pButton label="Add Product" icon="fa-plus" (click)="displayDialog()"></button>
+      <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export All Data" (click)="dt.exportCSV()"
+              style="float:right"></button>
     </p-footer>
   </p-panel>
 </div>

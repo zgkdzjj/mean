@@ -17,18 +17,18 @@
       <input #gb type="text" pInputText size="50" placeholder="Global Filter">
     </div>
 
-    <p-dataTable [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]" [value]="orders"
+    <p-dataTable #dt [globalFilter]="gb" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]" [value]="orders"
                  selectionMode="single" [(selection)]="selectedOrder" (onRowDblclick)="onRowDblclick($event)">
 
 
       <p-column field="orderNb" header="Order Number" [editable]="false"></p-column>
-      <p-column field="orderDate" header="Order Date" [editable]="false"></p-column>
+      <p-column field="orderDate" header="Order Date" [editable]="false" [sortable]="true"></p-column>
       <p-column field="clientName" header="Client Name" [editable]="false"></p-column>
       <p-column field="clientAliases" header="Client Aliases" [editable]="false"></p-column>
 
       <p-column field="contactNb" header="Contact Number" [editable]="false"></p-column>
       <p-column field="paymentStatus" header="Payment Status" [editable]="false"></p-column>
-      <p-column field="orderStatus" header="Order Status" [editable]="false"></p-column>
+      <p-column field="orderStatus" header="Order Status" [editable]="false" [sortable]="true"></p-column>
       <p-column field="trackNb" header="Tracking NB." [editable]="false"></p-column>
 
 
@@ -37,21 +37,22 @@
           Edit
         </ng-template>
         <ng-template let-row="rowData" pTemplate="body">
-          <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)"></button>
-          <button type="button" pButton icon="fa-clone" (click)="onCloneOrderClick(row)"></button>
-          <button type="button" pButton icon="fa-remove" (click)="onRemoveOrderClick(row)"></button>
+          <button type="button" pButton icon="fa-edit" (click)="onEditClick(row)" pTooltip="Edit Order"></button>
+          <button type="button" pButton icon="fa-clone" (click)="onCloneOrderClick(row)" pTooltip="Clone Order"></button>
+          <button type="button" pButton icon="fa-remove" (click)="onRemoveOrderClick(row)" pTooltip="Remove Order"></button>
         </ng-template>
       </p-column>
 
 
     </p-dataTable>
     <p-footer>
-      <button pButton label="Add Order" icon="fa-plus" (click)="displayAddOrderDialog()"></button>
+      <button pButton label="Add Order" icon="fa-plus" (click)="toAddOrder()"></button>
+      <button type="button" pButton icon="fa-file-o" iconPos="left" label="Export All Data" (click)="dt.exportCSV()" style="float:right"></button>
     </p-footer>
   </p-panel>
 </div>
 
-<p-dialog header="Order Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+<p-dialog class="example" id="orderContent" #orderContent header="Order Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
           [dismissableMask]="true"
           [width]="600" *ngIf="order">
 
@@ -225,11 +226,22 @@
 
 
   <p-footer>
-    <button pButton type="button" icon="fa-plus" label="Add Item" class="ui-button-info" [style]="{'float':'left'}"
+<!--
+    <button pButton type="button" icon="fa-plus" label="Export to PDF" class="ui-button-info" (click)="downloadPdf()" style="float:left"></button>
+-->
+
+    <button pButton type="button" icon="fa-plus" label="Add Item" class="ui-button-info"
             (click)="addItem()"></button>
 
     <button pButton type="button" icon="fa-plus" label="Update" class="ui-button-info" (click)="updateOrder()"></button>
     <button pButton type="button" icon="fa-list" label="Cancel" class="ui-button-success" (click)="cancel()"></button>
   </p-footer>
 
+
 </p-dialog>
+
+
+
+<div *ngIf="false" id="content" #content >
+  This is order Content.
+</div>
