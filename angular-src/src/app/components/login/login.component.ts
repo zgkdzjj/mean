@@ -3,6 +3,9 @@ import {ValidateService} from "../../services/validate.service";
 import {AuthService} from "../../services/auth.service";
 import {FlashMessagesService} from "angular2-flash-messages";
 import {Router} from "@angular/router";
+import { Message } from "primeng/primeng";
+import { MessageService} from "primeng/components/common/messageservice";
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(private validateService: ValidateService,
               private flashMessagesService: FlashMessagesService,
               private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -33,8 +37,7 @@ export class LoginComponent implements OnInit {
     // Validate Login Form
     if (!this.validateService.validateLoginForm(loginDetails)) {
       console.log('Please fill in login details');
-      this.flashMessagesService.show('Please fill in login details', {
-        cssClass: 'alert-danger', timeout: 3000});
+      return this.messageService.add({severity:'warn', summary:'Service Message', detail:'Please fill in login details'});
     }
 
 
@@ -44,16 +47,21 @@ export class LoginComponent implements OnInit {
         console.log('data=> ' + JSON.stringify(data,null,4));
         if (data.success){
           this.authService.storeUserInfo(data.user,data.token);
-          this.router.navigate(['/dashboard']);
-          this.flashMessagesService.show('Login Succeed', {
-            cssClass: 'alert-success', timeout: 3000
-          });
+          this.messageService.add({severity:'success', summary:'Service Message', detail:'Login successfully, redirect in 3 seconds.'});
+
+          setTimeout(()=>{
+            this.router.navigate(['/dashboard']);
+            this.messageService.clear();
+          }, 3000);
+
           console.log('Login Succeed');
         } else {
-          this.flashMessagesService.show(data.msg, {
-            cssClass: 'alert-danger', timeout: 3000
-          });
-          this.router.navigate(['/login']);
+          this.messageService.add({severity:'warn', summary:'Service Message', detail: data.msg + ' Go to login page in 3s.'});
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+            this.messageService.clear();
+          }, 3000);
           console.log(data.msg);
         }
       }

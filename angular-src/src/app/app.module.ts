@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from "@angular/router";
 import {FlashMessagesModule} from "angular2-flash-messages";
+import { MessageService} from "primeng/components/common/messageservice";
 
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
@@ -19,6 +20,8 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {BrandComponent} from './components/brand/brand.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 
 
 import {SharedModule} from 'primeng/primeng';
@@ -61,7 +64,7 @@ const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
-  //{path: 'register', component: RegisterComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: 'brand', component: BrandComponent, canActivate: [AuthGuardService]},
@@ -132,7 +135,8 @@ const appRoutes: Routes = [
     CategoryService,
     ProductService,
     OrderService,
-    ContactService
+    ContactService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

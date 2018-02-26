@@ -48,3 +48,113 @@
     </div>
   </div>
 </nav>
+
+
+<!--<div class="layout-wrapper">
+
+  <div id="g-sidebar">
+    <div id="g-sidebar-1">
+      <a class="logo">
+        <span class="s1">
+
+        </span>
+      </a>
+
+      <div class="sidebar-1-wrap">
+        <a id="home_menutitle" #homemenutitle [class.active-menuitem]="homemenutitle.id == activeMenuId"
+           (click)="goSideMenu2(homemenutitle)">
+          <img src="../../../assets/icons/home-active.svg" class="layout-menu-icon-active"/>
+          <img src="../../../assets/icons/home-inactive.svg" class="layout-menu-icon-inactive"/>
+          <span>Home</span>
+        </a>
+
+        <a id="prod_menutitle" #prodmenutitle [class.active-menuitem]="prodmenutitle.id == activeMenuId"
+           (click)="goSideMenu2(prodmenutitle)">
+          <img src="../../../assets/icons/bag-active.svg" class="layout-menu-icon-active"/>
+          <img src="../../../assets/icons/bag-inactive.svg" class="layout-menu-icon-inactive"/>
+          <span>Products</span>
+        </a>
+
+
+        <a id="order_menutitle" #ordermenutitle [class.active-menuitem]="ordermenutitle.id == activeMenuId"
+           (click)="goSideMenu2(ordermenutitle)">
+          <img src="../../../assets/icons/order-active.svg" class="layout-menu-icon-active"/>
+          <img src="../../../assets/icons/order-inactive.svg" class="layout-menu-icon-inactive"/>
+          <span>Orders</span>
+        </a>
+
+        <a id="contact_menutitle" #contactmenutitle [class.active-menuitem]="contactmenutitle.id == activeMenuId"
+           (click)="goSideMenu2(contactmenutitle)">
+          <img src="../../../assets/icons/contact-active.svg" class="layout-menu-icon-active"/>
+          <img src="../../../assets/icons/contact-inactive.svg" class="layout-menu-icon-inactive"/>
+          <span>Clients</span>
+        </a>
+
+        <a id="data_menutitle" #datamenutitle [class.active-menuitem]="datamenutitle.id == activeMenuId"
+           (click)="goSideMenu2(datamenutitle)">
+          <img src="../../../assets/icons/data-active.svg" class="layout-menu-icon-active"/>
+          <img src="../../../assets/icons/data-inactive.svg" class="layout-menu-icon-inactive"/>
+          <span>Data</span>
+        </a>
+
+
+      </div>
+    </div>
+
+
+    <div id="g-sidebar-2">
+
+      <div [ngClass]="{'submenushow': showSideBar2 , 'submenuhide': !showSideBar2}">
+        <div class="g-sidebar-2-title">
+          <div
+            [ngClass]="{'submenushow': (prodmenutitle.id == activeMenuId) , 'submenuhide': (prodmenutitle.id != activeMenuId)}">
+            Products
+          </div>
+          <div
+            [ngClass]="{'submenushow': (ordermenutitle.id == activeMenuId) , 'submenuhide': (ordermenutitle.id != activeMenuId)}">
+            Orders
+          </div>
+          <div
+            [ngClass]="{'submenushow': (contactmenutitle.id == activeMenuId) , 'submenuhide': (contactmenutitle.id != activeMenuId)}">
+            Clients
+          </div>
+          <div
+            [ngClass]="{'submenushow': (datamenutitle.id == activeMenuId) , 'submenuhide': (datamenutitle.id != activeMenuId)}">
+            Data
+          </div>
+        </div>
+        <div class="sidebar-2-wrap">
+          <div id="prod_menu" [ngClass]="{'submenushow': (prodmenutitle.id == activeMenuId) , 'submenuhide': (prodmenutitle.id != activeMenuId)}">
+
+              <a [routerLink]="['product']">List</a>
+              <a>Category</a>
+              <a>Brand</a>
+              <a>Tag</a>
+
+
+          </div>
+
+          <div id="order_menu" [ngClass]="{'submenushow': (ordermenutitle.id == activeMenuId) , 'submenuhide': (ordermenutitle.id != activeMenuId)}">
+
+              <a>Order</a>
+              <a>Manage</a>
+
+
+          </div>
+
+          <div id="contact_menu" [ngClass]="{'submenushow': (contactmenutitle.id == activeMenuId) , 'submenuhide': (contactmenutitle.id != activeMenuId)}">
+
+            <a>Contacts</a>
+            <a>Edit</a>
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>-->
+

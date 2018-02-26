@@ -6,6 +6,18 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 
+
+// Get a User
+router.get('/:username', (req, res, next) => {
+    User.getUserByUsername(req.params.username, (err, user) => {
+        if (err) {
+            res.json({success: false, msg: 'Failed to get a user'});
+        } else {
+            res.json({success: true, msg: 'User found', data: user});
+        }
+    });
+});
+
 // Register
 router.post('/register', (req, res, next) => {
     let newUser = new User({

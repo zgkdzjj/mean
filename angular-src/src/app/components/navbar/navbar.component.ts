@@ -9,12 +9,25 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  menuActive: string;
+  activeMenuId: string;
+  showSideBar2: boolean;
+  menu_products = {
+    "title" : "Products",
+    "sub_menu" : [
+
+    ]
+  };
+
 
   constructor(private authService: AuthService,
               private flashMessages: FlashMessagesService,
-              private router: Router) { }
+              private router: Router) {
+
+  }
 
   ngOnInit() {
+
   }
 
   onLogoutClick(){
@@ -24,6 +37,20 @@ export class NavbarComponent implements OnInit {
     });
     this.router.navigate(['home']);
 
+  }
+
+  goSideMenu2(event){
+
+    let id = event.id;
+    this.activeMenuId = id;
+    console.log('id = ' + id);
+    if(id == 'home_menutitle') {
+      this.showSideBar2 = false;
+    } else {
+      this.showSideBar2 = true;
+    }
+
+    console.log('showSideBar2 = ' + this.showSideBar2);
   }
 
 }
